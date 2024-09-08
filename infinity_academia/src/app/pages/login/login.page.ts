@@ -4,6 +4,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import * as e from 'express';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +17,15 @@ export class LoginPage implements OnInit {
   // isLoading: boolean = false;
   private loading: any;
   public toast: any;
-  public userLogin: User = {};
-  public userRegister: User = {};
+  public userLogin: User = {email: '', password: ''};
+  public userRegister: User = {email: '', password: ''};
 
   constructor(
  
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class LoginPage implements OnInit {
       // Chama o método de login do AuthService
       await this.authService.login(this.userLogin);
       console.log(this.userLogin)
+        this.router.navigate(['/home']);
     } 
     catch (error: any) {
       this.presentToast(error.message || 'Erro desconhecido');
@@ -62,6 +65,7 @@ export class LoginPage implements OnInit {
   try {
     // Chama o método de registro do AuthService
     await this.authService.register(this.userRegister);
+    this.router.navigate(['/login']);
   } 
   catch (error: any) {
     this.presentToast(error.message || 'Erro desconhecido');
