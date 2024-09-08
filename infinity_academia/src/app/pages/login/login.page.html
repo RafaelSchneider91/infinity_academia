@@ -10,18 +10,18 @@
       <ion-item lines="none" class="ion-item">
         <fieldset  class="input-item">
           <legend>Email</legend> 
-          <ion-input type="email" placeholder="digite seu email"></ion-input>
+          <ion-input type="email" placeholder="digite seu email" [(ngModel)]="userLogin.email" name="emaillogin"></ion-input>
         </fieldset>
       </ion-item>
       <ion-item lines="none" class="ion-item">
         <fieldset class="input-item">
           <legend>Senha</legend>
-          <ion-input type="password" placeholder="*******"></ion-input> 
+          <ion-input type="password" placeholder="*******" [(ngModel)]="userLogin.password" name="passwordlogin"></ion-input> 
         </fieldset>
       </ion-item>
       <p class="forget-text"><a (click)="change('forget')" >Esqueceu sua senha?</a ></p>
       <p class="signup-text">Sou um novo usuário,<a (click)="change('signup')"> Registrar?</a></p>
-      <ion-button class="login-button" expand="block">Login</ion-button>
+      <ion-button class="login-button" expand="block" (click)="login()">Login</ion-button>
     </form>
   </div>
 
@@ -29,29 +29,28 @@
   <div class="container"  *ngIf="screen === 'signup'">
     <img src="assets/img/infinity_logo.png"> 
     <h1 class="heading">🚀 Crie sua Conta<br><br></h1>
-    <!-- <p class="para">Registre seu usuario para iniciar!</p> -->
      <br>
     <form>
       <ion-item lines="none" class="ion-item">
         <fieldset  class="input-item">
           <legend>Nome Completo</legend> 
-          <ion-input type="text" placeholder="Digite seu nome completo"></ion-input> 
+          <ion-input type="text" placeholder="Digite seu nome completo" ></ion-input> 
         </fieldset>
       </ion-item>
       <ion-item lines="none" class="ion-item">
         <fieldset  class="input-item">
           <legend>Email</legend> 
-          <ion-input type="email" placeholder="digite seu email"></ion-input>
+          <ion-input type="email" placeholder="digite seu email" [(ngModel)]="userRegister.email" name="email"></ion-input>
         </fieldset>
       </ion-item>
       <ion-item lines="none" class="ion-item">
         <fieldset class="input-item">
           <legend>Senha</legend> 
-          <ion-input type="password" placeholder="*******"></ion-input> 
+          <ion-input type="password" placeholder="*******" [(ngModel)]="userRegister.password" name="password"></ion-input> 
         </fieldset>
       </ion-item>
       <p class="signup-text">Ja estou registrado, <a (click)="change('signin')">Login?</a></p>
-      <ion-button class="login-button" expand="block">Registrar</ion-button>
+      <ion-button class="login-button" expand="block" (click)="register()">Registrar</ion-button>
     </form>
   </div>
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingController, ToastController } from '@ionic/angular';
+import * as e from 'express';
+import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,20 +12,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPage implements OnInit {
   screen: any = 'signin'
-  formData: FormGroup;
-  isLoading: boolean = false;
-
+  // formData: FormGroup;
+  // isLoading: boolean = false;
+  private loading: any;
+  public toast: any;
+  public userLogin: User = {};
+  public userRegister: User = {};
 
   constructor(
-    private fb:FormBuilder,
-    private auth: AuthService
-  ) {
-    this.formData = this.fb.group({
-      name: ['',[Validators.required]],
-      email:['',[Validators.required, Validators.email]],
-      password:['',[Validators.required]],
-    })
-   }
+ 
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit() {
     ''
@@ -32,19 +34,63 @@ export class LoginPage implements OnInit {
     this.screen = event;
   }
 
-  login(){
-    var formData: any = new FormData();
-    if(this.formData.valid){
-      this.isLoading = true;
-      // formData.append('email', this.formData.get('email').value);
-      // formData.append('password', this.formData.get('password').value);
-      console.log(this.formData);
-    //   this.auth.userLogin(formData).subscribe((data:any)=>{
-    //     console.log(data);
-    // });
+  async login(){
+    await this.presentLoading();
+    try {
+      // Chama o método de login do AuthService
+      await this.authService.login(this.userLogin);
+      console.log(this.userLogin)
+    } 
+    catch (error: any) {
+      this.presentToast(error.message || 'Erro desconhecido');
+    }
+    finally {
+      if (this.loading) {
+        this.loading.dismiss();
+      }
     }
   }
+
+  // async login (){
+  //   console.log(this.userLogin)
+  // }
+
   
+  async register() {
+  await this.presentLoading();
 
+  try {
+    // Chama o método de registro do AuthService
+    await this.authService.register(this.userRegister);
+  } 
+  catch (error: any) {
+    this.presentToast(error.message || 'Erro desconhecido');
+  }
+  finally {
+    if (this.loading) {
+      this.loading.dismiss();
+    }
+  }
+}
 
+  
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Por favor, aguarde...',
+    });
+
+    return this.loading.present();
+  }
+
+  
+  async presentToast(message: string) {
+    this.toast = await this.toastCtrl.create({
+      message: message,
+      duration: 5000,
+      position: 'top', // Certifique-se de que o toast esteja visível
+    });
+  
+    return this.toast.present();
+  }
+  
 }
