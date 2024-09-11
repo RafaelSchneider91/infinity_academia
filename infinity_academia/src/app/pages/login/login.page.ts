@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  screen: any = 'signin'
-  // formData: FormGroup;
-  // isLoading: boolean = false;
+  public screen: any = 'signin'
+  public email: string = '';
+
   private loading: any;
   public toast: any;
   public userLogin: User = {email: '', password: ''};
@@ -95,6 +95,16 @@ export class LoginPage implements OnInit {
     });
   
     return this.toast.present();
+  }
+
+  // Função para chamar o serviço de redefinição de senha com async/await
+  async resetPassword() {
+    try {
+      await this.authService.resetPassword(this.email);
+      this.presentToast('Redefinição de senha enviada!');
+    } catch (error: any) {
+      this.presentToast(error.message || 'Erro desconhecido');
+    }
   }
   
 }
