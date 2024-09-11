@@ -61,11 +61,11 @@
     <ion-item lines="none" class="ion-item">
       <fieldset  class="input-item">
         <legend>Email</legend> 
-        <ion-input type="email" placeholder="Digite seu email cadastrado..."></ion-input>
+        <ion-input type="email" placeholder="Digite seu email cadastrado..." [(ngModel)]="email"></ion-input>
       </fieldset>
     </ion-item>
     <p class="signup-text">Senha lembrada, <a (click)="change('signin')">Login?</a></p>
-    <ion-button class="login-button" expand="block">Nova Senha</ion-button>
+    <ion-button class="login-button" expand="block"  (click)="resetPassword()">Nova Senha</ion-button>
   </div>
   
   
