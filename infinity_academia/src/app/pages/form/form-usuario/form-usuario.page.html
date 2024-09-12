@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastro de Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cadastrar Usuário</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <!-- Campo Nome -->
+      <ion-item lines="full" class="ion-margin-bottom">
+        <ion-label position="floating">Nome</ion-label>
+        <p></p>
+        <ion-input id="name" formControlName="nome" placeholder="Digite o nome"></ion-input>
+      </ion-item>
+
+      <!-- Campo Email -->
+      <ion-item lines="full" class="ion-margin-bottom">
+        <ion-label position="floating">Email</ion-label>
+        <p></p>
+
+        <ion-input id="email" type="email" formControlName="email" placeholder="Digite o email"></ion-input>
+      </ion-item>
+
+      <!-- Botão de Cadastro -->
+      <ion-button expand="full" type="submit" [disabled]="userForm.invalid" class="ion-margin-top">
+        Cadastrar
+      </ion-button>
+    </form>
+  </ion-content>
+</ion-content>

@@ -40,7 +40,19 @@ const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  }
+  },
+{
+  path: 'form-treino',
+  loadChildren: () => import('./pages/form/form-treino/form-treino.module').then(m => m.FormTreinoPageModule)
+},
+{
+  path: 'form-usuario',
+  loadChildren: () => import('./pages/form/form-usuario/form-usuario.module').then(m => m.FormUsuarioPageModule)
+},
+{
+  path: 'lista-treino/:id',  // Note o parâmetro :id
+  loadChildren: () => import('./pages/lista-treino/lista-treino.module').then(m => m.ListaTreinoPageModule)
+}
 ];
 
 @NgModule({

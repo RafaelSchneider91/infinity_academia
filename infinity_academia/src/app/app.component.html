@@ -1,3 +1,15 @@
 <ion-app>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title color="secondary">Infinity Academia</ion-title>
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="['/home']" color="primary">Home</ion-button>
+        <ion-button [routerLink]="['/form-treino']" color="secondary">Cadastro de Treino</ion-button>
+        <ion-button [routerLink]="['/form-usuario']" color="secondary">Cadastro de Usuário</ion-button>
+        <ion-button [routerLink]="['/lista-treino']" color="secondary">Lista de Treino</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

@@ -1,0 +1,30 @@
+{
+  "usuarios": [
+    {
+      "id": 20,
+      "nome": "8888",
+      "email": "8888@8"
+    },
+    {
+      "id": 21,
+      "nome": "1111",
+      "email": "1111@1111"
+    }
+  ],
+  "treinos": [
+    {
+      "usuarioId": 21,
+      "tipo": "Aeróbica",
+      "serie": 6,
+      "repeticao": 7,
+      "status": "ativo",
+      "modificacaoTs": "2024-09-11T17:47:45.745Z",
+      "diasSemana": [
+        "Quinta"
+      ],
+      "id": 24
+    }
+  ],
+  "nextUserId": 28,
+  "nextTreinoId": 31
+}

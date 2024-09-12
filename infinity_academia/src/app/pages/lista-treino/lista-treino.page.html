@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Treinos do(a) {{ userName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lista de Treinos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Mensagem e botão para adicionar novos treinos -->
+    <ion-card *ngFor="let treino of treinos">
+      <ion-card-header>
+        <ion-card-title>Treino ID: {{ treino.id }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Tipo:</strong> {{ treino.tipo }}</p>
+        <p><strong>Série:</strong> {{ treino.serie }}</p>
+        <p><strong>Repetições:</strong> {{ treino.repeticao }}</p>
+        <p><strong>Dias da Semana:</strong> {{ treino.diasSemana ? treino.diasSemana.join(', ') : 'Nenhum dia selecionado' }}</p>
+        <ion-button color="danger" (click)="deleteTreino(treino.id)">
+          Excluir
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</ion-content>
