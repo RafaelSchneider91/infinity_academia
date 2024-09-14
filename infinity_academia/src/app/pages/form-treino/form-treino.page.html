@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="secondary">Infinity Academia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']" color="primary">Home</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+    <ion-title>Cadastro de Treino</ion-title>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Cadastrar Treino</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <form [formGroup]="treinoForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+
+        <!-- Tipo de Objetivo -->
+        <ion-item>
+          <ion-label position="floating">Tipo de Objetivo</ion-label>
+          <ion-select formControlName="tipoObjetivo">
+            <ion-select-option *ngFor="let objetivo of tipoObjetivo" [value]="objetivo">
+              {{ objetivo }}
+            </ion-select-option>
+          </ion-select>
+          <ion-note color="danger" *ngIf="treinoForm.get('tipoObjetivo')?.invalid && treinoForm.get('tipoObjetivo')?.touched">
+            Tipo de objetivo é obrigatório.
+          </ion-note>
+        </ion-item>
+
+        <!-- Modalidade de Treino -->
+        <ion-item>
+          <ion-label position="floating">Modalidade de treino</ion-label>
+          <ion-select formControlName="movimento">
+            <ion-select-option *ngFor="let tipo of tiposMovimento" [value]="tipo">
+              {{ tipo }}
+            </ion-select-option>
+          </ion-select>
+          <ion-note color="danger" *ngIf="treinoForm.get('movimento')?.invalid && treinoForm.get('movimento')?.touched">
+            Modalidade de treino é obrigatória.
+          </ion-note>
+        </ion-item>
+
+        <!-- Série -->
+        <ion-item>
+          <ion-label position="floating">Série</ion-label>
+          <ion-select formControlName="serie">
+            <ion-select-option *ngFor="let option of seriesOptions" [value]="option">
+              {{ option }}
+            </ion-select-option>
+          </ion-select>
+          <ion-note color="danger" *ngIf="treinoForm.get('serie')?.invalid && treinoForm.get('serie')?.touched">
+            Série é obrigatória.
+          </ion-note>
+        </ion-item>
+
+        <!-- Repetições -->
+        <ion-item>
+          <ion-label position="floating">Repetições</ion-label>
+          <ion-select formControlName="repeticoes">
+            <ion-select-option *ngFor="let option of repeticoesOptions" [value]="option">
+              {{ option }}
+            </ion-select-option>
+          </ion-select>
+          <ion-note color="danger" *ngIf="treinoForm.get('repeticoes')?.invalid && treinoForm.get('repeticoes')?.touched">
+            Repetições são obrigatórias.
+          </ion-note>
+        </ion-item>
+
+        <ion-item class="calendar-container">
+          <div class="calendar-content">
+            <ion-label>Escolha os dias da semana</ion-label>
+            <p></p>
+            <ion-datetime
+              displayFormat="DD/MM/YYYY"
+              pickerFormat="DD/MM/YYYY"
+              [(ngModel)]="selectedDate"
+              (ionChange)="onDateChange($event)"
+              multiple
+            ></ion-datetime>
+          </div>
+        </ion-item>
+
+        <!-- Botão de Envio -->
+        <ion-item>
+          <ion-button expand="full" type="submit" [disabled]="treinoForm.invalid">Cadastrar Treino</ion-button>
+        </ion-item>
+
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

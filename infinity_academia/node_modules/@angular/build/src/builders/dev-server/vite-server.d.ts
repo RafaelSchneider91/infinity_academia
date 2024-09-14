@@ -19,6 +19,10 @@ interface OutputFileRecord {
     updated: boolean;
     servable: boolean;
 }
+interface DevServerExternalResultMetadata extends Omit<ExternalResultMetadata, 'explicit'> {
+    explicitBrowser: string[];
+    explicitServer: string[];
+}
 export type BuilderAction = (options: ApplicationBuilderInternalOptions, context: BuilderContext, plugins?: Plugin[]) => AsyncIterable<Result>;
 export declare function serveWithVite(serverOptions: NormalizedDevServerOptions, builderName: string, builderAction: BuilderAction, context: BuilderContext, transformers?: {
     indexHtml?: (content: string) => Promise<string>;
@@ -26,6 +30,6 @@ export declare function serveWithVite(serverOptions: NormalizedDevServerOptions,
     middleware?: Connect.NextHandleFunction[];
     buildPlugins?: Plugin[];
 }): AsyncIterableIterator<DevServerBuilderOutput>;
-export declare function setupServer(serverOptions: NormalizedDevServerOptions, outputFiles: Map<string, OutputFileRecord>, assets: Map<string, string>, preserveSymlinks: boolean | undefined, externalMetadata: ExternalResultMetadata, ssr: boolean, prebundleTransformer: JavaScriptTransformer, target: string[], zoneless: boolean, prebundleLoaderExtensions: EsbuildLoaderOption | undefined, extensionMiddleware?: Connect.NextHandleFunction[], indexHtmlTransformer?: (content: string) => Promise<string>, thirdPartySourcemaps?: boolean): Promise<InlineConfig>;
+export declare function setupServer(serverOptions: NormalizedDevServerOptions, outputFiles: Map<string, OutputFileRecord>, assets: Map<string, string>, preserveSymlinks: boolean | undefined, externalMetadata: DevServerExternalResultMetadata, ssr: boolean, prebundleTransformer: JavaScriptTransformer, target: string[], zoneless: boolean, prebundleLoaderExtensions: EsbuildLoaderOption | undefined, extensionMiddleware?: Connect.NextHandleFunction[], indexHtmlTransformer?: (content: string) => Promise<string>, thirdPartySourcemaps?: boolean): Promise<InlineConfig>;
 type EsbuildLoaderOption = Exclude<DepOptimizationConfig['esbuildOptions'], undefined>['loader'];
 export {};

@@ -1,0 +1,10 @@
+.calendar-item {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.calendar-item ion-datetime {
+  width: 100%; /* Ajuste a largura conforme necessário */
+  max-width: 400px; /* Defina um máximo para a largura, se necessário */
+}

@@ -107,7 +107,8 @@ async function* serveWithVite(serverOptions, builderName, builderAction, context
     const externalMetadata = {
         implicitBrowser: [],
         implicitServer: [],
-        explicit: [],
+        explicitBrowser: [],
+        explicitServer: [],
     };
     // Add cleanup logic via a builder teardown.
     let deferred;
@@ -187,15 +188,18 @@ async function* serveWithVite(serverOptions, builderName, builderAction, context
                 requiresServerRestart = implicitServerFiltered.some((dep) => !previousImplicitServer.has(dep));
             }
             // Empty Arrays to avoid growing unlimited with every re-build.
-            externalMetadata.explicit.length = 0;
+            externalMetadata.explicitBrowser.length = 0;
+            externalMetadata.explicitServer.length = 0;
             externalMetadata.implicitServer.length = 0;
             externalMetadata.implicitBrowser.length = 0;
-            externalMetadata.explicit.push(...explicit);
+            externalMetadata.explicitBrowser.push(...explicit);
+            externalMetadata.explicitServer.push(...explicit, ...nodeJsBuiltinModules);
             externalMetadata.implicitServer.push(...implicitServerFiltered);
             externalMetadata.implicitBrowser.push(...implicitBrowserFiltered);
             // The below needs to be sorted as Vite uses these options are part of the hashing invalidation algorithm.
             // See: https://github.com/vitejs/vite/blob/0873bae0cfe0f0718ad2f5743dd34a17e4ab563d/packages/vite/src/node/optimizer/index.ts#L1203-L1239
-            externalMetadata.explicit.sort();
+            externalMetadata.explicitBrowser.sort();
+            externalMetadata.explicitServer.sort();
             externalMetadata.implicitServer.sort();
             externalMetadata.implicitBrowser.sort();
         }
@@ -422,18 +426,18 @@ async function setupServer(serverOptions, outputFiles, assets, preserveSymlinks,
             },
             // This is needed when `externalDependencies` is used to prevent Vite load errors.
             // NOTE: If Vite adds direct support for externals, this can be removed.
-            preTransformRequests: externalMetadata.explicit.length === 0,
+            preTransformRequests: externalMetadata.explicitBrowser.length === 0,
         },
         ssr: {
             // Note: `true` and `/.*/` have different sematics. When true, the `external` option is ignored.
             noExternal: /.*/,
             // Exclude any Node.js built in module and provided dependencies (currently build defined externals)
-            external: externalMetadata.explicit,
+            external: externalMetadata.explicitServer,
             optimizeDeps: getDepOptimizationConfig({
                 // Only enable with caching since it causes prebundle dependencies to be cached
                 disabled: serverOptions.prebundle === false,
                 // Exclude any explicitly defined dependencies (currently build defined externals and node.js built-ins)
-                exclude: externalMetadata.explicit,
+                exclude: externalMetadata.explicitServer,
                 // Include all implict dependencies from the external packages internal option
                 include: externalMetadata.implicitServer,
                 ssr: true,
@@ -452,19 +456,19 @@ async function setupServer(serverOptions, outputFiles, assets, preserveSymlinks,
                 outputFiles,
                 assets,
                 ssr,
-                external: externalMetadata.explicit,
+                external: externalMetadata.explicitBrowser,
                 indexHtmlTransformer,
                 extensionMiddleware,
                 normalizePath,
             }),
-            (0, id_prefix_plugin_1.createRemoveIdPrefixPlugin)(externalMetadata.explicit),
+            (0, id_prefix_plugin_1.createRemoveIdPrefixPlugin)(externalMetadata.explicitBrowser),
         ],
         // Browser only optimizeDeps. (This does not run for SSR dependencies).
         optimizeDeps: getDepOptimizationConfig({
             // Only enable with caching since it causes prebundle dependencies to be cached
             disabled: serverOptions.prebundle === false,
             // Exclude any explicitly defined dependencies (currently build defined externals)
-            exclude: externalMetadata.explicit,
+            exclude: externalMetadata.explicitBrowser,
             // Include all implict dependencies from the external packages internal option
             include: externalMetadata.implicitBrowser,
             ssr: false,
