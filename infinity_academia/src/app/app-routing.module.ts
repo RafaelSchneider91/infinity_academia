@@ -40,7 +40,12 @@ const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'form-treino',
+    loadChildren: () => import('./pages/form-treino/form-treino.module').then(m => m.FormTreinoPageModule)
+  },
+
 ];
 
 @NgModule({

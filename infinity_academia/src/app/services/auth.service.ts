@@ -32,7 +32,7 @@ export class AuthService {
   register(user: User) {
     return this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
-  
+
   // Função para enviar o email de redefinição de senha
   resetPassword(email: string): Promise<void> {
     return this.afAuth.sendPasswordResetEmail(email);
@@ -42,5 +42,9 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       this.router.navigate(['/login']);  // Redireciona para a página de login após logout
     });
+  }
+
+  getUserId(): Promise<string | null> {
+    return this.afAuth.currentUser.then(user => user ? user.uid : null);
   }
 }

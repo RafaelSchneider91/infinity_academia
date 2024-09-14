@@ -1,5 +1,5 @@
-
-<ion-header [translucent]="true">
+<!-- home.page.html -->
+<ion-header [translucent]="true" class="custom-header">
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
       <ion-button id="popover-button">
@@ -8,27 +8,42 @@
             <ng-template>
               <ion-content>
                 <ion-list>
+                  <ion-item [routerLink]="['/form-treino']" [button]="true" [detail]="false">Cadastrar Treino</ion-item>
                   <ion-item [button]="true" [detail]="false" (click)="logout()">Sair</ion-item>
-                  <ion-item [button]="true" [detail]="false">Cadastrar Treino</ion-item>
                 </ion-list>
               </ion-content>
             </ng-template>
           </ion-popover>
-          
-
-    
         </ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
-      Home Page
+      Infinity Academia
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Home Page</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-
+    <ion-list>
+      <ion-item *ngFor="let treino of treinos$ | async">
+        <ion-label>
+          <h2>{{ treino.tipoObjetivo }}</h2>
+          <p>Movimento: {{ treino.movimento }}</p>
+          <p>Séries: {{ treino.serie }}</p>
+          <p>Repetições: {{ treino.repeticoes }}</p>
+        </ion-label>
+        <ion-button (click)="deleteTreino(treino.id)" color="danger">
+          <ion-icon slot="start" name="trash"></ion-icon>
+          Excluir
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

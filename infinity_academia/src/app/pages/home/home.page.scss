@@ -1,0 +1,12 @@
+/* Específico para o cabeçalho */
+ion-header {
+  position: relative; /* Garante que o cabeçalho não seja afetado pelo CSS global */
+}
+
+ion-toolbar {
+  --background: var(--ion-color-primary); /* Define a cor de fundo do toolbar */
+}
+
+ion-title {
+  color: var(--ion-color-light); /* Define a cor do título no toolbar */
+}
