@@ -1,0 +1,14 @@
+export * from 'firebase/analytics';
+import { getAnalytics as _getAnalytics, getGoogleAnalyticsClientId as _getGoogleAnalyticsClientId, initializeAnalytics as _initializeAnalytics, logEvent as _logEvent, setAnalyticsCollectionEnabled as _setAnalyticsCollectionEnabled, setConsent as _setConsent, setCurrentScreen as _setCurrentScreen, setDefaultEventParameters as _setDefaultEventParameters, settings as _settings, setUserId as _setUserId, setUserProperties as _setUserProperties } from 'firebase/analytics';
+export { isSupported } from './overrides';
+export declare const getAnalytics: typeof _getAnalytics;
+export declare const getGoogleAnalyticsClientId: typeof _getGoogleAnalyticsClientId;
+export declare const initializeAnalytics: typeof _initializeAnalytics;
+export declare const logEvent: typeof _logEvent;
+export declare const setAnalyticsCollectionEnabled: typeof _setAnalyticsCollectionEnabled;
+export declare const setConsent: typeof _setConsent;
+export declare const setCurrentScreen: typeof _setCurrentScreen;
+export declare const setDefaultEventParameters: typeof _setDefaultEventParameters;
+export declare const settings: typeof _settings;
+export declare const setUserId: typeof _setUserId;
+export declare const setUserProperties: typeof _setUserProperties;
