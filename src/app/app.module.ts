@@ -20,8 +20,7 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),  // Inicializa Firebase com as credenciais
-
+    AngularFireModule.initializeApp(environment.firebase),  // Inicializa Firebase com as credenciais
   ],
   providers: [{
     provide: RouteReuseStrategy,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,9 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class TreinoService {
 
-  private treinosCollection = this.firestore.collection('treinos');
+  private treinosCollection: AngularFirestoreCollection<any>;
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {
+    // Inicialize 'treinosCollection' no construtor
+    this.treinosCollection = this.firestore.collection('treinos');
+  }
 
   // Método para buscar todos os treinos
   getTreinos(): Observable<any[]> {

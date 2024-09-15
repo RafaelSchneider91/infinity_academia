@@ -1,0 +1,7 @@
+{
+  "name": "infinity_academia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

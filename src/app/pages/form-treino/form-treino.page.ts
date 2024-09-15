@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service'; // Importa o AuthService
-import { TreinoService } from 'src/app/services/treino.service'; // Importa o TreinoService
+import { AuthService } from '../../services/auth.service';
+import { TreinoService } from '../../services/treino.service';
 
 @Component({
   selector: 'app-form-treino',
