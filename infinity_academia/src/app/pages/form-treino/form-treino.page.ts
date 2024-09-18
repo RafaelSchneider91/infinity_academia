@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service'; // Importa o AuthService
-import { TreinoService } from 'src/app/services/treino.service'; // Importa o TreinoService
+import { AuthService } from 'src/app/services/auth/auth.service'; // Importa o AuthService
+import { TreinoService } from 'src/app/services/treinos/treino.service'; // Importa o TreinoService
 
 @Component({
   selector: 'app-form-treino',
@@ -11,13 +11,18 @@ import { TreinoService } from 'src/app/services/treino.service'; // Importa o Tr
   styleUrls: ['./form-treino.page.scss'],
 })
 export class FormTreinoPage implements OnInit {
-
   treinoForm!: FormGroup;
   tipoObjetivo: string[] = ['Emagrecimento', 'Ganho de massa magra'];
-  tiposMovimento: string[] = ['Tronco Anterior', 'Tronco Posterior', 'Membros Inferiores', 'Core', 'Aeróbico'];
-  seriesOptions: number[] = [1, 2, 3, 4, 5];  // Séries entre 1 e 5
-  repeticoesOptions: number[] = [6, 8, 10, 12, 15, 20];  // Repetições comuns em treinos de força e hipertrofia
-
+  tiposMovimento: string[] = [
+    'Tronco Anterior',
+    'Tronco Posterior',
+    'Membros Inferiores',
+    'Core',
+    'Aeróbico',
+  ];
+  seriesOptions: number[] = [1, 2, 3, 4, 5]; // Séries entre 1 e 5
+  repeticoesOptions: number[] = [6, 8, 10, 12, 15, 20]; // Repetições comuns em treinos de força e hipertrofia
+  public screen: any = 'peso';
 
   constructor(
     private fb: FormBuilder,
@@ -27,15 +32,14 @@ export class FormTreinoPage implements OnInit {
     private treinoService: TreinoService // Injetar o TreinoService para enviar dados para o Firestore
   ) {}
 
-
   async ngOnInit() {
     this.treinoForm = this.fb.group({
-      usuarioId: [''],  // Será preenchido com o ID do usuário logado
+      usuarioId: [''], // Será preenchido com o ID do usuário logado
       tipoObjetivo: ['', Validators.required],
       movimento: ['', Validators.required],
       serie: ['', Validators.required],
       repeticoes: ['', Validators.required],
-      diasSemana: this.fb.array([])  // Novo campo para dias da semana
+      diasSemana: this.fb.array([]), // Novo campo para dias da semana
     });
 
     try {
@@ -64,13 +68,13 @@ export class FormTreinoPage implements OnInit {
 
   selectedDate: string[] = [];
 
-onDateChange(event: any) {
-  const selectedDates = event.detail.value;
-  this.diasSemana.clear();
-  selectedDates.forEach((date: string) => {
-    this.addDia(date);
-  });
-}
+  onDateChange(event: any) {
+    const selectedDates = event.detail.value;
+    this.diasSemana.clear();
+    selectedDates.forEach((date: string) => {
+      this.addDia(date);
+    });
+  }
 
   async onSubmit() {
     if (this.treinoForm.valid) {
@@ -83,17 +87,44 @@ onDateChange(event: any) {
         await this.presentToast('Erro ao cadastrar treino.', 'danger');
       }
     } else {
-      await this.presentToast('Preencha todos os campos obrigatórios.', 'danger');
+      await this.presentToast(
+        'Preencha todos os campos obrigatórios.',
+        'danger'
+      );
     }
   }
 
-  private async presentToast(message: string, color: 'success' | 'danger' = 'success'): Promise<void> {
+  private async presentToast(
+    message: string,
+    color: 'success' | 'danger' = 'success'
+  ): Promise<void> {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
       position: 'top',
-      color
+      color,
     });
     await toast.present();
+  }
+
+  userData = {
+    peso: null,
+    objetivo: '',
+    dias: [],
+  };
+
+  next(screen: string) {
+    this.screen = screen;
+  }
+
+  prev(screen: string) {
+    this.screen = screen;
+  }
+
+  submit() {
+    // Aqui você pode enviar os dados coletados para o serviço de backend
+    console.log(this.userData);
+    // Redirecionar para a página inicial ou realizar outras ações
+    this.router.navigate(['/home']);
   }
 }

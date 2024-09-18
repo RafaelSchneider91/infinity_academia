@@ -42,9 +42,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'form-treino',
+    path: 'form-treino', //TODO:Verificar se isso sera necessario
     loadChildren: () => import('./pages/form-treino/form-treino.module').then(m => m.FormTreinoPageModule)
   },
+  {
+    path: 'userfeatures',
+    loadChildren: () => import('./pages/userfeatures/userfeatures.module').then( m => m.UserfeaturesPageModule)
+  },
+
+  
+
 
 ];
 

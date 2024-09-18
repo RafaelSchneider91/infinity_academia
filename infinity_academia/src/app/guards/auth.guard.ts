@@ -21,7 +21,7 @@
 //     private router: Router,
 
 //   ){}
-  
+
 //   canActivate(): Observable<boolean> {
 //     return of(false);
 //   }
@@ -43,24 +43,23 @@
 //   //   }
 //   //   return true;
 //   // }
-  
+
 // }
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';  // Importe o seu serviço de autenticação
+import { AuthService } from '../services/auth/auth.service'; // Importe o seu serviço de autenticação
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean | Promise<boolean> | Observable<boolean> {
-    return this.authService.isAuthenticated().then(isAuth => {
+    return this.authService.isAuthenticated().then((isAuth) => {
       if (!isAuth) {
-        this.router.navigate(['login']);  // Redireciona para a página de login se não estiver autenticado
+        this.router.navigate(['login']); // Redireciona para a página de login se não estiver autenticado
         return false;
       }
       return true;

@@ -1,12 +1,63 @@
-/* Específico para o cabeçalho */
-ion-header {
-  position: relative; /* Garante que o cabeçalho não seja afetado pelo CSS global */
+ion-avatar {
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+  // border-radius: 100%;
+  background: rgb(22, 65, 14); /* Exemplo de cor personalizada */
+}
+
+
+ion-title {
+  text-align: start;
+  font-size: 16px;
+
+  h6{
+    margin-top: 20px;
+    font-size: 10px;
+  }
+  
+  p {
+    margin: 0px;
+  }
 }
 
 ion-toolbar {
-  --background: var(--ion-color-primary); /* Define a cor de fundo do toolbar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  // --background-color: wheat;
+  --background: #b6b6b6; /* Exemplo de cor personalizada */
+  height: 100%;
+  color: black; /* Cor do texto no header */
+  
+  ion-buttons {
+    margin-top: 20px;
+  }
+
+
+
+
 }
 
-ion-title {
-  color: var(--ion-color-light); /* Define a cor do título no toolbar */
+ion-header{
+  height: 120px;
+  
+  
 }
+
+ion-content {
+  // --background: #121214; /* Cor de fundo para o conteúdo da página */
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  h2 {
+    color: black;
+    
+  }
+}
+
+
+
+

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { TreinoService } from '../../services/treino.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { TreinoService } from '../../services/treinos/treino.service';
 import { Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 
@@ -55,12 +55,15 @@ export class HomePage implements OnInit {
     }
   }
 
-  private async presentToast(message: string, color: 'success' | 'danger' = 'success'): Promise<void> {
+  private async presentToast(
+    message: string,
+    color: 'success' | 'danger' = 'success'
+  ): Promise<void> {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
       position: 'top',
-      color
+      color,
     });
     await toast.present();
   }

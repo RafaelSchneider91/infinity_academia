@@ -1,0 +1,64 @@
+<ion-content [fullscreen]="true">
+
+  <!-- Pergunta sobre Peso -->
+  <div *ngIf="screen === 'peso'">
+    <img src="assets/img/infinity_logo.png"> 
+    <h1 class="heading">🏋️ Qual é o seu peso?<br><br></h1>
+    <br>
+    <form>
+      <ion-item lines="none" class="ion-item">
+        <fieldset class="input-item">
+          <legend>Peso (kg)</legend> 
+          <ion-input type="number" placeholder="Digite seu peso" [(ngModel)]="userData.peso" name="peso"></ion-input>
+        </fieldset>
+      </ion-item>
+      <ion-button class="next-button" expand="block" (click)="next('objetivo')">Próximo</ion-button>
+    </form>
+  </div>
+
+  <!-- Pergunta sobre Objetivo -->
+  <div *ngIf="screen === 'objetivo'">
+    <img src="assets/img/infinity_logo.png"> 
+    <h1 class="heading">🎯 Qual é o seu objetivo?<br><br></h1>
+    <br>
+    <form>
+      <ion-item lines="none" class="ion-item">
+        <fieldset class="input-item">
+          <legend>Objetivo</legend>
+          <ion-select placeholder="Selecione seu objetivo" [(ngModel)]="userData.objetivo" name="objetivo">
+            <ion-select-option value="perda_peso">Perda de Peso</ion-select-option>
+            <ion-select-option value="ganho_muscular">Ganho Muscular</ion-select-option>
+          </ion-select>
+        </fieldset>
+      </ion-item>
+      <ion-button class="prev-button" expand="block" (click)="prev('peso')">Voltar</ion-button>
+      <ion-button class="next-button" expand="block" (click)="next('dias')">Próximo</ion-button>
+    </form>
+  </div>
+
+  <!-- Pergunta sobre Dias de Treino -->
+  <div *ngIf="screen === 'dias'">
+    <img src="assets/img/infinity_logo.png"> 
+    <h1 class="heading">📅 Quais dias você vai treinar?<br><br></h1>
+    <br>
+    <form>
+      <ion-item lines="none" class="ion-item">
+        <fieldset class="input-item">
+          <legend>Dias de Treino</legend>
+          <ion-select placeholder="Selecione os dias" multiple="true" [(ngModel)]="userData.dias" name="dias">
+            <ion-select-option value="segunda">Segunda-feira</ion-select-option>
+            <ion-select-option value="terca">Terça-feira</ion-select-option>
+            <ion-select-option value="quarta">Quarta-feira</ion-select-option>
+            <ion-select-option value="quinta">Quinta-feira</ion-select-option>
+            <ion-select-option value="sexta">Sexta-feira</ion-select-option>
+            <ion-select-option value="sabado">Sábado</ion-select-option>
+            <ion-select-option value="domingo">Domingo</ion-select-option>
+          </ion-select>
+        </fieldset>
+      </ion-item>
+      <ion-button class="prev-button" expand="block" (click)="prev('objetivo')">Voltar</ion-button>
+      <ion-button class="submit-button" expand="block" (click)="submit()">Finalizar</ion-button>
+    </form>
+  </div>
+
+</ion-content>

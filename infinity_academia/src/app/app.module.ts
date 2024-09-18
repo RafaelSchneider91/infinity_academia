@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
+// import { AngularFireDatabaseModule } from '@angular/fire/compat/database'; // Módulo do Realtime Database
 
 
 @NgModule({
@@ -20,7 +21,10 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFirestoreModule,
+    // AngularFireDatabaseModule,
+  
     AngularFireModule.initializeApp(environment.firebaseConfig),  // Inicializa Firebase com as credenciais
+    
 
   ],
   providers: [{

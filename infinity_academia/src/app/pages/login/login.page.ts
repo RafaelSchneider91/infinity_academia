@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 import * as e from 'express';
 import { User } from 'src/app/interfaces/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,16 +12,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  public screen: any = 'signin'
+  public screen: any = 'signin';
   public email: string = '';
 
   private loading: any;
   public toast: any;
-  public userLogin: User = {email: '', password: ''};
-  public userRegister: User = {email: '', password: ''};
+  public userLogin: User = { email: '', password: '' };
+  public userRegister: User = { email: '', password: '' };
 
   constructor(
- 
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private authService: AuthService,
@@ -29,25 +28,23 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    ''
+    ('');
   }
 
-  change(event: string){
+  change(event: string) {
     this.screen = event;
   }
 
-  async login(){
+  async login() {
     await this.presentLoading();
     try {
       // Chama o método de login do AuthService
       await this.authService.login(this.userLogin);
-      console.log(this.userLogin)
-        this.router.navigate(['/home']);
-    } 
-    catch (error: any) {
+      // console.log(this.userLogin)
+      this.router.navigate(['/userfeatures']);
+    } catch (error: any) {
       this.presentToast(error.message || 'Erro desconhecido');
-    }
-    finally {
+    } finally {
       if (this.loading) {
         this.loading.dismiss();
       }
@@ -58,26 +55,22 @@ export class LoginPage implements OnInit {
   //   console.log(this.userLogin)
   // }
 
-  
   async register() {
-  await this.presentLoading();
+    await this.presentLoading();
 
-  try {
-    // Chama o método de registro do AuthService
-    await this.authService.register(this.userRegister);
-    this.router.navigate(['/login']);
-  } 
-  catch (error: any) {
-    this.presentToast(error.message || 'Erro desconhecido');
-  }
-  finally {
-    if (this.loading) {
-      this.loading.dismiss();
+    try {
+      // Chama o método de registro do AuthService
+      await this.authService.register(this.userRegister);
+      this.router.navigate(['/login']);
+    } catch (error: any) {
+      this.presentToast(error.message || 'Erro desconhecido');
+    } finally {
+      if (this.loading) {
+        this.loading.dismiss();
+      }
     }
   }
-}
 
-  
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
       message: 'Por favor, aguarde...',
@@ -86,14 +79,13 @@ export class LoginPage implements OnInit {
     return this.loading.present();
   }
 
-  
   async presentToast(message: string) {
     this.toast = await this.toastCtrl.create({
       message: message,
       duration: 5000,
       position: 'top', // Certifique-se de que o toast esteja visível
     });
-  
+
     return this.toast.present();
   }
 
@@ -106,5 +98,4 @@ export class LoginPage implements OnInit {
       this.presentToast(error.message || 'Erro desconhecido');
     }
   }
-  
 }
