@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserfeaturesService {
+  
+  
+  
+  private treinosCollection = this.firestore.collection('userfeatures');
 
-  constructor(
-    private db: AngularFirestore
-  ) { }
+  constructor(private firestore: AngularFirestore) { }
 
   // Método para adicionar características do usuário
   addUserFeature(userId: string, peso: number, objetivo: string, dias: string[]) {
@@ -20,7 +24,7 @@ export class UserfeaturesService {
     };
 
     // Adiciona o documento na coleção 'user_features' com o ID do usuário
-    return this.db.collection('user_features').doc(userId).set(userFeature)
+    return this.firestore.collection('user_features').doc(userId).set(userFeature)
       .then(() => {
         console.log('Características do usuário adicionadas com sucesso!');
       })
