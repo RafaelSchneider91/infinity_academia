@@ -1,97 +1,72 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="secondary">Infinity Academia</ion-title>
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/home']" color="primary">Home</ion-button>
+    <ion-buttons slot="start">
+      <ion-button (click)="navigateToHome()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title>Formulário de Treino</ion-title>
   </ion-toolbar>
-
-    <ion-title>Cadastro de Treino</ion-title>
 </ion-header>
+<ion-content>
+  <form [formGroup]="treinoForm" (ngSubmit)="saveTreino()">
+    <!-- Objetivo -->
+    <ion-item>
+      <ion-label>Objetivo</ion-label>
+      <ion-segment formControlName="objetivo" value="perda_peso">
+        <ion-segment-button value="perda_peso">
+          Perda de Peso
+        </ion-segment-button>
+        <ion-segment-button value="ganho_muscular">
+          Ganho Muscular
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
 
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Cadastrar Treino</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <!-- Dias da Semana -->
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Dias de Treino</ion-label>
+      </ion-list-header>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <ion-button *ngFor="let dia of diasDaSemana"
+                    [color]="isDiaSelecionado(dia) ? 'primary' : 'light'"
+                    (click)="toggleDia(dia)"
+                    style="flex: 1 1 auto; min-width: 80px;">
+          {{ dia }}
+        </ion-button>
+      </div>
+    </ion-list>
 
-    <form [formGroup]="treinoForm" (ngSubmit)="onSubmit()">
-      <ion-list>
+    <!-- Exercícios por Dia -->
+    <div style="display: flex; flex-direction: column; margin-top: 20px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div *ngFor="let dia of diasDaSemana" style="flex: 1 1 calc(33% - 10px);">
+          <ion-card *ngIf="isDiaSelecionado(dia)">
+            <ion-card-header>
+              <ion-card-title>{{ dia }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div formArrayName="exercicios">
+                <ul style="list-style-type: none; padding: 0;">
+                  <li *ngFor="let exercicio of exerciciosControls.controls; let i = index" [formGroupName]="i">
+                    <ion-item>
+                      <ion-label>
+                        <h2>{{ exercicio.get('movimento')?.value }}</h2>
+                        <p>Séries: {{ exercicio.get('serie')?.value }}</p>
+                        <p>Repetições: {{ exercicio.get('repeticoes')?.value }}</p>
+                      </ion-label>
+                    </ion-item>
+                  </li>
+                </ul>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
 
-        <!-- Tipo de Objetivo -->
-        <ion-item>
-          <ion-label position="floating">Tipo de Objetivo</ion-label>
-          <ion-select formControlName="tipoObjetivo">
-            <ion-select-option *ngFor="let objetivo of tipoObjetivo" [value]="objetivo">
-              {{ objetivo }}
-            </ion-select-option>
-          </ion-select>
-          <ion-note color="danger" *ngIf="treinoForm.get('tipoObjetivo')?.invalid && treinoForm.get('tipoObjetivo')?.touched">
-            Tipo de objetivo é obrigatório.
-          </ion-note>
-        </ion-item>
-
-        <!-- Modalidade de Treino -->
-        <ion-item>
-          <ion-label position="floating">Modalidade de treino</ion-label>
-          <ion-select formControlName="movimento">
-            <ion-select-option *ngFor="let tipo of tiposMovimento" [value]="tipo">
-              {{ tipo }}
-            </ion-select-option>
-          </ion-select>
-          <ion-note color="danger" *ngIf="treinoForm.get('movimento')?.invalid && treinoForm.get('movimento')?.touched">
-            Modalidade de treino é obrigatória.
-          </ion-note>
-        </ion-item>
-
-        <!-- Série -->
-        <ion-item>
-          <ion-label position="floating">Série</ion-label>
-          <ion-select formControlName="serie">
-            <ion-select-option *ngFor="let option of seriesOptions" [value]="option">
-              {{ option }}
-            </ion-select-option>
-          </ion-select>
-          <ion-note color="danger" *ngIf="treinoForm.get('serie')?.invalid && treinoForm.get('serie')?.touched">
-            Série é obrigatória.
-          </ion-note>
-        </ion-item>
-
-        <!-- Repetições -->
-        <ion-item>
-          <ion-label position="floating">Repetições</ion-label>
-          <ion-select formControlName="repeticoes">
-            <ion-select-option *ngFor="let option of repeticoesOptions" [value]="option">
-              {{ option }}
-            </ion-select-option>
-          </ion-select>
-          <ion-note color="danger" *ngIf="treinoForm.get('repeticoes')?.invalid && treinoForm.get('repeticoes')?.touched">
-            Repetições são obrigatórias.
-          </ion-note>
-        </ion-item>
-
-        <ion-item class="calendar-container">
-          <div class="calendar-content">
-            <ion-label>Escolha os dias da semana</ion-label>
-            <p></p>
-            <ion-datetime
-              displayFormat="DD/MM/YYYY"
-              pickerFormat="DD/MM/YYYY"
-              [(ngModel)]="selectedDate"
-              (ionChange)="onDateChange($event)"
-              multiple
-            ></ion-datetime>
-          </div>
-        </ion-item>
-
-        <!-- Botão de Envio -->
-        <ion-item>
-          <ion-button expand="full" type="submit" [disabled]="treinoForm.invalid">Cadastrar Treino</ion-button>
-        </ion-item>
-
-      </ion-list>
-    </form>
-  </div>
+    <!-- Botões -->
+    <ion-button expand="full" type="submit">Salvar Treino</ion-button>
+  </form>
 </ion-content>

@@ -1,3 +1,4 @@
+<!-- home.page.html -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -5,13 +6,14 @@
         <img src="assets/img/imgExemploHomePage.jpg" alt="Foto do usuário" />
       </ion-avatar>
     </ion-buttons>
-    
+
     <ion-title>
       <h6>Olá,</h6>
-      <p>Rodrigro Gonçalves</p>
     </ion-title>
 
     <ion-buttons slot="end">
+
+      <!-- Botão de Logout -->
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -21,4 +23,64 @@
 
 <ion-content>
   <h2>Bem-vindo à sua página inicial!</h2>
+
+  <!-- Dados do Usuário -->
+  <div *ngIf="userFeature$ | async as userFeature; else loadingUser">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Dados do Usuário</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>CPF:</strong> {{ userFeature.cpf }}</p>
+        <p><strong>Altura:</strong> {{ userFeature.altura }} cm</p>
+        <p><strong>Peso:</strong> {{ userFeature.peso }} kg</p>
+        <p><strong>Objetivo:</strong> {{ userFeature.objetivo === 'perda_peso' ? 'Perda de Peso' : 'Ganho Muscular' }}</p>
+        <p><strong>Dias de Treino:</strong> {{ userFeature.dias.join(', ') }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #loadingUser>
+    <p>Carregando dados do usuário...</p>
+  </ng-template>
+
+  <!-- Exibir Treinos Separados por Dia -->
+  <div *ngIf="treinosByDia && diasComTreinos.length > 0; else loadingTreinos">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let dia of diasComTreinos">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ dia }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item *ngFor="let treino of treinosByDia[dia]">
+                  <ion-label>
+                    <h2>Objetivo: {{ treino.objetivo === 'perda_peso' ? 'Perda de Peso' : 'Ganho Muscular' }}</h2>
+                    <p><strong>Exercícios:</strong></p>
+                    <ul>
+                      <li *ngFor="let exercicio of treino.exercicios">
+                        {{ exercicio.movimento }} - Séries: {{ exercicio.serie }}, Repetições: {{ exercicio.repeticoes }}
+                      </li>
+                    </ul>
+                    <p><strong>Data:</strong> {{ treino.timestamp | date: 'short' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ng-template #loadingTreinos>
+    <p>Carregando treinos...</p>
+  </ng-template>
+
+  <!-- Botão para Navegar para o Formulário de Treino -->
+  <ion-button expand="full" (click)="navigateToFormTreino()">
+    Ir para Formulário de Treino
+  </ion-button>
 </ion-content>

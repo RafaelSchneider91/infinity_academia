@@ -48,11 +48,7 @@ const routes: Routes = [
   {
     path: 'userfeatures',
     loadChildren: () => import('./pages/userfeatures/userfeatures.module').then( m => m.UserfeaturesPageModule)
-  },
-
-  
-
-
+  }
 ];
 
 @NgModule({

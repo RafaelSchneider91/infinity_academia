@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserfeaturesService } from 'src/app/services/userfeatures/userfeatures.service';
 
 @Component({
   selector: 'app-userfeatures',
@@ -8,21 +9,25 @@ import { Router } from '@angular/router';
 })
 export class UserfeaturesPage implements OnInit {
 
-  public screen: any = 'peso'
+  public screen: string = 'cpf'; // Inicializa como 'cpf'
+
+  userData = {
+    peso: 0,
+    altura: 0,
+    cpf: '',
+    objetivo: '',
+    dias: [],
+    treinos: [], // Corrigido
+  };
 
   constructor(
     private router: Router,
+    private userFeaturesService: UserfeaturesService
   ) { }
 
   ngOnInit() {
-    ''
+    // Inicialize dados se necessário
   }
-
-  userData = {
-    peso: null,
-    objetivo: '',
-    dias: []
-  };
 
   next(screen: string) {
     this.screen = screen;
@@ -32,11 +37,15 @@ export class UserfeaturesPage implements OnInit {
     this.screen = screen;
   }
 
-  submit() {
-    // Aqui você pode enviar os dados coletados para o serviço de backend
-    console.log(this.userData);
-    // Redirecionar para a página inicial ou realizar outras ações
-    this.router.navigate(['/home']);
-  }
+  async submit() {
+    const { cpf, altura, peso, objetivo, dias } = this.userData;
 
+    try {
+      await this.userFeaturesService.addUserFeature(cpf, altura, peso, objetivo, dias, this.userData.treinos);
+      console.log('Características do usuário salvas com sucesso!');
+      this.router.navigate(['/form-treino']);
+    } catch (error) {
+      console.error('Erro ao salvar características do usuário: ', error);
+    }
+  }
 }
