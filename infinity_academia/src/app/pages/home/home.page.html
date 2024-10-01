@@ -9,6 +9,7 @@
               <ion-content>
                 <ion-list>
                   <ion-item [routerLink]="['/form-treino']" [button]="true" [detail]="false">Cadastrar Treino</ion-item>
+                  <ion-item [routerLink]="['/treinos-cadastrados']" [button]="true" [detail]="false">Treinos Cadastrados</ion-item>
                   <ion-item [button]="true" [detail]="false" (click)="logout()">Sair</ion-item>
                 </ion-list>
               </ion-content>
@@ -19,6 +20,8 @@
     </ion-buttons>
     <ion-title>
       Infinity Academia
+      <h6>Olá</h6>
+      <p>Nome aluno</p>
     </ion-title>
   </ion-toolbar>
 </ion-header>

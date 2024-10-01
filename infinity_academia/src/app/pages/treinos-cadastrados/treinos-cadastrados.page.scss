@@ -1,0 +1,30 @@
+ion-item {
+    --padding-start: 0;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: auto;
+  }
+ion-thumbnail {
+    --size: 80px;
+    --border-radius: 8px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: auto;
+  }
+ion-card {
+  --size: 300px;
+  --border-radius: flex;
+  align-items: center;
+  width: auto;
+}
+ion-card-subtitle {
+
+  --border-radius: flex;
+  justify-content: center;
+  margin: auto;
+  width: auto;
+}
+  

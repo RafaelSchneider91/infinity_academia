@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="secondary">Infinity Academia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']" color="primary">Home</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+    <ion-title>Treinos cadastrados</ion-title>
+</ion-header>
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="RotinaA" src="assets/img/TreinoSuperiorAnterior.png" />
+          </ion-thumbnail>
+        </ion-item>
+        <ion-card-subtitle>Peitoral/Braços/Abdomen</ion-card-subtitle>
+        <ion-card-title><ion-button [routerLink]="['/rotina-a']" expand="block">rotina-a</ion-button></ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="RotinaB" src="assets/img/TreinoSuperiorPosterior.png" />
+          </ion-thumbnail>
+        </ion-item>
+        <ion-card-subtitle>Costas/Braços/Lombar</ion-card-subtitle>
+        <ion-card-title><ion-button [routerLink]="['/rotina-b']" expand="block">Rotina - B</ion-button></ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="RotinaC" src="assets/img/Pernas.png" />
+          </ion-thumbnail>
+        </ion-item>
+        <ion-card-subtitle>Membros Inferiores</ion-card-subtitle>
+        <ion-card-title><ion-button [routerLink]="['/rotina-c']" expand="block">Rotina - C</ion-button></ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="Aerobico" src="assets/img/Aerobico.png" />
+          </ion-thumbnail>
+        </ion-item>
+        <ion-card-subtitle>Aeróbico</ion-card-subtitle>
+        <ion-card-title><ion-button [routerLink]="['/aerobicos']" expand="block">Esteira/Bike/Elíptico</ion-button></ion-card-title>
+      </ion-card-header>
+    </ion-card>

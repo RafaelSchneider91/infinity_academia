@@ -44,7 +44,35 @@ const routes: Routes = [
   {
     path: 'form-treino',
     loadChildren: () => import('./pages/form-treino/form-treino.module').then(m => m.FormTreinoPageModule)
+  },  {
+    path: 'treinos-cadastrados',
+    loadChildren: () => import('./pages/treinos-cadastrados/treinos-cadastrados.module').then( m => m.TreinosCadastradosPageModule)
   },
+  {
+    path: 'rotina-a',
+    loadChildren: () => import('./pages/rotina-a/rotina-a.module').then( m => m.RotinaAPageModule)
+  },
+  {
+    path: 'rotina-b',
+    loadChildren: () => import('./pages/rotina-b/rotina-b.module').then( m => m.RotinaBPageModule)
+  },
+  {
+    path: 'rotina-c',
+    loadChildren: () => import('./pages/rotina-c/rotina-c.module').then( m => m.RotinaCPageModule)
+  },
+  {
+    path: 'rotina-d',
+    loadChildren: () => import('./pages/rotina-d/rotina-d.module').then( m => m.RotinaDPageModule)
+  },
+  {
+    path: 'perfil-aluno',
+    loadChildren: () => import('./pages/perfil-aluno/perfil-aluno.module').then( m => m.PerfilAlunoPageModule)
+  },
+  {
+    path: 'aerobicos',
+    loadChildren: () => import('./pages/aerobicos/aerobicos.module').then( m => m.AerobicosPageModule)
+  },
+
 
 ];
 

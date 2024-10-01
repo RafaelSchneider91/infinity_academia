@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="secondary">Infinity Academia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/treinos-cadastrados']" color="primary">Voltar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Aeróbicos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-title class="aerobicos">Aeróbicos</ion-title>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Esteira ergométrica</ion-label>
+      <ion-checkbox justify="space-between"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bicicleta ergométrica</ion-label>
+      <ion-checkbox justify="space-between"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Elíptico</ion-label>
+      <ion-checkbox justify="space-between"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
